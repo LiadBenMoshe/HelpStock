@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HelpStock Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Stock Intelligence Dashboard</p>
+        <h1>HelpStock</h1>
+        <p class="hero-copy">A compact research dashboard for technical levels, valuation, sentiment, news, and market context.</p>
+      </div>
+      <form id="analyze-form" class="search-panel">
+        <div class="search-panel-header">
+          <label for="symbol-input">Stock Symbol</label>
+          <div class="language-switcher">
+            <label for="language-select" class="language-label">Language</label>
+            <select id="language-select" aria-label="Language">
+              <option value="en">English</option>
+              <option value="he">עברית</option>
+            </select>
+          </div>
+        </div>
+        <div class="search-row">
+          <input id="symbol-input" name="symbol" type="text" placeholder="AAPL" maxlength="10" required>
+          <button type="submit">Analyze</button>
+        </div>
+        <p class="hint">Examples: AAPL, MSFT, NVDA, TSLA</p>
+      </form>
+    </header>
+
+    <div id="status-banner" class="status-banner hidden"></div>
+    <div id="loading" class="loading hidden">
+      <div class="spinner"></div>
+      <span>Fetching live market data and building the analysis...</span>
+    </div>
+
+    <main id="dashboard" class="dashboard hidden">
+      <section class="card card-wide" id="summary-card">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow">Company Overview</p>
+            <h2 id="company-name">-</h2>
+          </div>
+          <span id="generated-at" class="timestamp"></span>
+        </div>
+        <div class="overview-grid">
+          <div>
+            <p class="meta" id="company-meta">-</p>
+            <p id="company-description">-</p>
+          </div>
+          <div>
+            <h3>Main Products / Services</h3>
+            <ul id="company-products" class="list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><h3>Support / Resistance</h3></div>
+        <p id="support-methodology" class="muted"></p>
+        <div class="two-col">
+          <div>
+            <h4>Support</h4>
+            <ul id="support-levels" class="list"></ul>
+          </div>
+          <div>
+            <h4>Resistance</h4>
+            <ul id="resistance-levels" class="list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><h3>Insider Activity</h3><span id="insider-badge" class="badge neutral">Neutral</span></div>
+        <p id="insider-summary"></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Date</th><th>Type</th><th>Shares</th><th>Change</th></tr>
+            </thead>
+            <tbody id="insider-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><h3>Revenue Growth</h3><span id="revenue-badge" class="badge neutral">Neutral</span></div>
+        <p id="revenue-figures" class="metric"></p>
+        <p id="revenue-interpretation"></p>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><h3>P/E Analysis</h3><span id="pe-badge" class="badge neutral">Neutral</span></div>
+        <p id="pe-figures" class="metric"></p>
+        <p id="pe-interpretation"></p>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><h3>Google Trends</h3><span id="trends-badge" class="badge neutral">Neutral</span></div>
+        <p id="trends-score" class="metric"></p>
+        <p id="trends-interpretation"></p>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><h3>VIX Status</h3><span id="vix-badge" class="badge neutral">Neutral</span></div>
+        <p id="vix-value" class="metric"></p>
+        <p id="vix-interpretation"></p>
+      </section>
+
+      <section class="card card-wide">
+        <div class="card-header"><h3>Analyst Targets</h3></div>
+        <div class="stats-row" id="target-stats"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Analyst / Source</th><th>Target</th><th>Published</th></tr>
+            </thead>
+            <tbody id="targets-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card card-wide">
+        <div class="card-header"><h3>News Summaries</h3></div>
+        <div id="news-list" class="stack"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><h3>Partnerships / Contracts</h3></div>
+        <div id="partnerships-list" class="stack"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><h3>Product Relevance</h3><span id="relevance-badge" class="badge neutral">Neutral</span></div>
+        <p id="relevance-score" class="metric"></p>
+        <p id="relevance-interpretation"></p>
+        <ul id="relevance-drivers" class="list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/app-localized.js"></script>
+</body>
+</html>
